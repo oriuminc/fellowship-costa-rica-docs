@@ -1,0 +1,181 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:100,300,400,700");
+@import url("https://fonts.googleapis.com/css?family=Ubuntu+Mono:100,200,300,400,700");
+body {
+  font-family: "Roboto";
+  font-weight: 200;
+  line-height: 30px;
+  color: #9292a8;
+}
+h1,
+h2,
+h3 {
+  font-family: "Roboto";
+  font-weight: 600;
+  color: #22272b;
+}
+.remark-code,
+.remark-inline-code {
+  font-family: "Ubuntu Mono";
+}
+body {
+  font-family: "Roboto";
+}
+.remark-slide-content h1 {
+  font-size: 3em;
+}
+.remark-slide-content h2 {
+  font-size: 2em;
+}
+.remark-slide-content h3 {
+  font-size: 1.6em;
+}
+.footnote {
+  position: absolute;
+  bottom: 3em;
+}
+li p {
+  line-height: 1.25em;
+}
+.red {
+  color: #fa0000;
+}
+.large {
+  font-size: 2em;
+}
+a,
+a > code {
+  color: #f92672;
+  text-decoration: none;
+}
+code {
+  border-radius: 5px;
+  background: #e7e8e2;
+}
+.remark-code,
+.remark-inline-code {
+  font-family: "Ubuntu Mono";
+}
+.remark-code-line-highlighted {
+  background-color: #373832;
+}
+.pull-left {
+  float: left;
+  width: 47%;
+}
+.pull-right {
+  float: right;
+  width: 47%;
+}
+.pull-right ~ p {
+  clear: both;
+}
+#slideshow .slide .content code {
+  font-size: .8em;
+}
+#slideshow .slide .content pre code {
+  padding: 15px;
+  font-size: .9em;
+}
+.inverse {
+  color: #777872;
+  background: #272822;
+  text-shadow: 0 0 20px #333;
+}
+.inverse h1,
+.inverse h2 {
+  line-height: .8em;
+  color: #f3f3f3;
+}
+#slide-inverse .footnote {
+  bottom: 12px;
+  left: 20px;
+}
+#slide-how .slides {
+  position: absolute;
+  top: 151px;
+  right: 140px;
+  font-size: .9em;
+}
+#slide-how .slides h3 {
+  margin-top: .2em;
+}
+#slide-how .slides .first,
+#slide-how .slides .second {
+  width: 120px;
+  height: 90px;
+  padding: 1px 20px;
+  box-shadow: 0 0 10px #777;
+}
+#slide-how .slides .first {
+  position: absolute;
+  z-index: 1;
+  top: 20%;
+  left: 20%;
+  background: #fff;
+}
+#slide-how .slides .second {
+  position: relative;
+  z-index: 0;
+  background: #fff;
+}
+.left-column {
+  float: left;
+  width: 20%;
+  height: 92%;
+  color: #777;
+}
+.left-column h2:last-of-type,
+.left-column h3:last-child {
+  color: #000;
+}
+.right-column {
+  float: right;
+  width: 75%;
+  padding-top: 1em;
+}
+#bg {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: 130vw;
+  height: 130vh;
+  background-image: url("img/background.png");
+  background-position: 100% 100%;
+  background-size: cover;
+}
+.remark-slides-area {
+  height: 88%;
+}
+.remark-slide-scaler {
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+.remark-slide-content {
+  font-size: 18px;
+}
+body {
+  box-sizing: border-box;
+  padding: 30px;
+}
+.remark-code,
+.remark-inline-code {
+  padding: 0 6px;
+}
+#header {
+  display: -ms-flexbox;
+  display: flex;
+}
+#logo {
+  z-index: 2;
+  width: 20%;
+  height: 50px;
+  margin-bottom: 15px;
+  background-image: url("img/logo.png");
+  background-repeat: no-repeat;
+  background-position: center left;
+  background-size: contain;
+}
