@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Presentation Title</title>
+    <meta name="description" content="Some description about the slides">
+    <meta name="author" content="You">
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <div id="bg"></div>
+    <div id="header">
+      <div id="logo"></div>
+      <div id="nav">
+        <div class="nav-link"> <a href="/index.html" class="text-white font-bold">Home</a></div>
+        <div class="nav-link"> <a href="/lessons/index.html" class="text-white font-bold">Lessons</a></div>
+        <div class="nav-link"> <a href="/exercices/index.html" class="text-white font-bold">Exercies</a></div>
+      </div>
+    </div>
+    <textarea id="source">## React and Classes
+
+Sometimes we need to use classes in react, mainly becuase it allows to make use of some of the built in methods of react. Such as: 
+
+1. ComponentDidMount
+2. ComponentWillUpdate
+
+Methods like these are called life-cycle events in react, you can read about them [here](https://blog.bitsrc.io/react-16-lifecycle-methods-how-and-when-to-use-them-f4ad31fb2282). These methods are really helpful when loading dyanmic content, such as api data. 
+
+So let's look at the differences between the function based component that we have been using and the new class based that we will be using. 
+``` JS
+// function
+export function App() {
+  return (
+    ...
+  )
+}
+// Class
+export default class App extends React.Component {
+  render() {
+    return (
+      ...
+    )
+  }
+}
+```
+---
+## React and Classes part 2
+
+Next up is understanding one of the react life-cycle methods : `componentDidMount`. The react life cycle is a circle of events that fire in order. 
+
+<img src="/img/lesson/lifeCycle.png" />
+
+``` JS
+export default class App extends React.Component {
+  componentDidMount() {
+    console.log("did mount");
+  }
+  render() {
+    console.log("render");
+    return (
+      ...
+    )
+  }
+}
+```
+
+The output here would be `render` then `did mount`.
+---
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script>
+    <script>window.remark || document.write(
+  '<script src="js/vendor/remark.min.js"><\/script>'
+)
+
+    </script>
+    <script src="/js/vendor/remark-language.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>

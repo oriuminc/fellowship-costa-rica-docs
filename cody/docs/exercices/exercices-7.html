@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Presentation Title</title>
+    <meta name="description" content="Some description about the slides">
+    <meta name="author" content="You">
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <div id="bg"></div>
+    <div id="header">
+      <div id="logo"></div>
+      <div id="nav">
+        <div class="nav-link"> <a href="/index.html" class="text-white font-bold">Home</a></div>
+        <div class="nav-link"> <a href="/lessons/index.html" class="text-white font-bold">Lessons</a></div>
+        <div class="nav-link"> <a href="/exercices/index.html" class="text-white font-bold">Exercies</a></div>
+      </div>
+    </div>
+    <textarea id="source">## State
+
+For the next few exercices first download the weather App from [here](/downloads/weather.zip), this is a small react app that makes a call to an api then renders the information. I will be referncing the app files several times. To install the weather app simply cd into the directory and run `npm i` and then `npm run start`. Once the app is running we should look at the `app.js` in the main directory.
+
+``` JS 
+class App extends React.Component {
+
+  state = {
+    temperature: undefined,
+    city: undefined,
+    country: undefined,
+    humidity: undefined,
+    description: undefined,
+    error: undefined
+  }
+```
+
+This is refered to as a local state in react, it is technically just an object with key, value pairs. The cool part is, when ever any value inside your state changes the entire react life-cycle with re-fire automatically. 
+
+---
+## State part 2
+
+Next up is modifing the state, we do this with the `setState` function, which can be explained [here](https://www.freecodecamp.org/news/get-pro-with-react-setstate-in-10-minutes-d38251d1c781/) if you look at line 25 of `app.js` you will see the function that updates the state. The function function that wraps it is called `axios` it is a way of getting information from a service called an API. The basic structure is this: 
+
+``` JS 
+axios.get('url') // url == the endpoint of the API
+.then((response) => { // this is fired once the data has been loaded
+  console.log(response) // this is the response from the endpoint
+});
+```
+Next up is modifing the state, which happens at line 25: 
+``` JS 
+this.setState({
+  temperature: response.data.main.temp,
+  city: response.data.name,
+  country: response.data.sys.country,
+  humidity: response.data.main.humidity,
+  description: response.data.weather[0].description,
+  error: ""
+})
+```
+This block is relativity easy to go through, basically we are targeting every key that we setup in the default state and changing it. What is happening behind the scenes, is that react is always watching this state and waiting for it the change. When it does react goes through it's life-cycle with updated information. 
+
+---
+## State Part 3
+
+In that last step we went over how to modify the state in react, now we need to use those updated values. One peice of the life cycle is the render, so in order of opperations it will look like this:
+
+1. Render
+2. ComponentDidMount
+3. API Call
+4. Update State
+5. Render 
+
+The first time `Render` fires all the values will be blank, but after the state changes React will automatically re-fire. This means that if we were to throw some console.logs in the `render` function like:
+``` JS
+render() {
+  console.log('render', this.state.city);
+  return (
+    ...
+  )
+}
+```
+the output from this will be :
+`render undefined`
+`render Toronto`
+We can tell from this that the render function does indeed fire twice, once when the App loads and then another time when the state is updated.
+---
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script>
+    <script>window.remark || document.write(
+  '<script src="js/vendor/remark.min.js"><\/script>'
+)
+
+    </script>
+    <script src="/js/vendor/remark-language.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>

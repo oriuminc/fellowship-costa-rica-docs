@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Presentation Title</title>
+    <meta name="description" content="Some description about the slides">
+    <meta name="author" content="You">
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <div id="bg"></div>
+    <div id="header">
+      <div id="logo"></div>
+      <div id="nav">
+        <div class="nav-link"> <a href="/index.html" class="text-white font-bold">Home</a></div>
+        <div class="nav-link"> <a href="/lessons/index.html" class="text-white font-bold">Lessons</a></div>
+        <div class="nav-link"> <a href="/exercices/index.html" class="text-white font-bold">Exercies</a></div>
+      </div>
+    </div>
+    <textarea id="source">## Import and render JSON
+
+Next we will be importing and rendering JSON data. First up we need to download and import a .json file. You can get it [here](https://google.com) 
+
+Once we have the json file in our directory we will need to import it into our application, so in our `app.js` we need to have something like: 
+
+```JS
+import students from './students.json';
+```
+
+This should give us access to the info in students as an array, we can loop over this and render the `<Card />` component for each iteration 
+
+---
+## Import and render JSON Part 2
+
+Next we will be creating a map method to loop through the students info, your code inside your `app.js` will look like this: 
+
+```JS
+function App() {
+  return (
+    <div className="App bg">
+      <div className="wrap">
+        <div className="flex cardWrap jus-between wrap">
+          {students && students.map(student => (
+            <Card 
+              name={student.name}
+              degree={student.degree}
+              quote={student.quote}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+The `students &&` part before the map is a check to make sure students is defined. The `students.map(student => (` is what starts our loop, where `student` is a variable defined containing the current iteration.
+
+---
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script>
+    <script>window.remark || document.write(
+  '<script src="js/vendor/remark.min.js"><\/script>'
+)
+
+    </script>
+    <script src="/js/vendor/remark-language.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>

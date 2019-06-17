@@ -5,7 +5,7 @@ So, what is react? In simple terms it is a way of building a serving a Single Pa
 Let's first take a look a the life blood of React, Components. The real purpose of a component can be broken into one thing: Rendering HTML. The web based components are a very powerful tool while building Applications, they allow us to break things into much smalled parts called components and import those parts into a wrapper component. React components have serveral parts, let's have a look at what those are: 
 
 1. Classes
-2. Constroctor
+2. Constructor
 3. Render
 4. Import / Export
 

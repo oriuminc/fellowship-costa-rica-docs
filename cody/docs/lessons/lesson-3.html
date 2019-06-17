@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Presentation Title</title>
+    <meta name="description" content="Some description about the slides">
+    <meta name="author" content="You">
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <div id="bg"></div>
+    <div id="header">
+      <div id="logo"></div>
+      <div id="nav">
+        <div class="nav-link"> <a href="/index.html" class="text-white font-bold">Home</a></div>
+        <div class="nav-link"> <a href="/lessons/index.html" class="text-white font-bold">Lessons</a></div>
+        <div class="nav-link"> <a href="/exercices/index.html" class="text-white font-bold">Exercies</a></div>
+      </div>
+    </div>
+    <textarea id="source">## React Structure
+
+Let's open the folder where we installed the `npm react-create-app`
+
+We Should see a structure like this : 
+
+```
+- app
+  - node_modules (This is where we install plugins)
+  - src
+    - app.js (This is the component root of our app)
+    - index.js (This is the base of our App)
+    - App.css (styling for the app.js)
+    - index.css (styling for the index.js)
+  - public (This is where images and fonts are stored)
+  - package.json (This has build scripts and defines what plugins we are using)
+```
+Open `App.js` 
+---
+## React Structure
+
+So we should see some familar things in this file, mainly within the render method. Let's break down everything we see: 
+
+### Import
+Imports in react can be used two ways, one is two import a libary package (like we see on line 1) and the second is to import a local file (like on line 2 & 3).
+
+Let's add a new import to App.js
+
+```
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
+import Button from './Button.js';
+```
+
+So What is this import doing? It will look for the file specfied in the path `'./Button.js'` inside that file it will look for either a named export or a default export. You can see an example of a default export on line 26 of App.js you can read a little more [here](https://medium.com/@thejasonfile/a-simple-intro-to-javascript-imports-and-exports-389dd53c3fac)
+
+Obvisoulsy this file does not exsist yet, but we will make it in the next step.
+---
+## React Structure Part 2
+
+### Export function
+
+The next thing we see is the export function, is this case it's called App. As you can see on line 5 (where it is defined) and line 26 where it is exported.
+
+`export default App;`
+
+Inside the function is really just the return and then the JSX, we will get into both a little later. Most importanly we have to remeber that every react component must be exported in order to be used.
+
+So every export can broken into two parts, one is the define of the function or class that you want to export. So What we see on line 5 could be written a few different ways: 
+
+```
+function App() {
+  ...
+}
+export default function App() {
+  ...
+}
+```
+you can read a little more [here](https://medium.com/@thejasonfile/a-simple-intro-to-javascript-imports-and-exports-389dd53c3fac)
+---
+## React Structure Part 3
+
+### JSX
+
+Next up is everything inside the `return` of the App function. This is called JSX and is a substitute for HTML. luckly for us it is formated much the same. So Lets's look at some of the differencies. Starting at line 7:
+In HTML this line would look like `<div class="App">` however in JSX `class` is a reserved JS term so we substitute `className` (Note the "N" here is capitlized) This refers to camel case, which can be read about [here](https://www.w3schools.com/js/js_conventions.asp)
+
+So nothing too dramatic here, for the most part JSX follows the same type of rules that HTML does. So, why do we use it over HTML? That is becuase JSX allows for JS injection, lets take a look at line 9 `<img src={logo} className="App-logo" alt="logo" />` specfically the `src={logo}` this is using a JS defined varible as an image source. We can read a little more about JSX [here](http://buildwithreact.com/tutorial/jsx) and [here](https://reactjs.org/docs/introducing-jsx.html)
+
+---
+## React Structure Part 3
+
+### JSX Part 2
+
+Another big rule to follow while creating JSX for react, is that only one parent is allowed in the return, So: 
+```
+return (
+  <div className="wrap">
+    <div className="child">
+    ...
+    </div>
+  </div>
+)
+```
+Is allowed, but :
+```
+return (
+  <div className="wrap">
+  </div>
+  <div className="child">
+    ...
+  </div>
+)
+```
+Is not
+---
+## React Structure Part 4
+
+Before moving on to the next section try and complete exercices 1 and 2. 
+1. [Exercice 1](/exercies/exercies-1.html)
+2. [Exercice 2](/exercies/exercies-2.html)
+---
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script>
+    <script>window.remark || document.write(
+  '<script src="js/vendor/remark.min.js"><\/script>'
+)
+
+    </script>
+    <script src="/js/vendor/remark-language.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>

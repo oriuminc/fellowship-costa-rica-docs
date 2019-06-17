@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Presentation Title</title>
+    <meta name="description" content="Some description about the slides">
+    <meta name="author" content="You">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body>
+    <div id="bg"></div>
+    <div id="header">
+      <div id="logo"></div>
+      <div id="nav">
+        <div class="nav-link"> <a href="/index.html" class="text-white font-bold">Home</a></div>
+        <div class="nav-link"> <a href="/lessons/index.html" class="text-white font-bold">Lessons</a></div>
+        <div class="nav-link"> <a href="/exercices/index.html" class="text-white font-bold">Exercies</a></div>
+      </div>
+    </div>
+    <textarea id="source">## Creating JSX
+
+For this we are going to be looking at creating a card for our inividual student from your yearbook. You can re-use your HTML and CSS from prevoius work here.
+
+```JS
+export default function App() {
+  return (
+    <div className="App">
+      <div className="card">
+        <div className="profilePic" />
+        <div className="cardBio">
+          <div className="name"> <h2 className="text-weight-bold"> ... </h2> </div>
+          <div className="degree text-small text-upper text-weight-light"> ... </div>
+          <div className="quote"> ... </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+```
+---
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script>
+    <script>window.remark || document.write(
+  '<script src="js/vendor/remark.min.js"><\/script>'
+)
+
+    </script>
+    <script src="/js/vendor/remark-language.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>

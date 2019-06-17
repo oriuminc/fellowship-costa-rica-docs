@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Presentation Title</title>
+    <meta name="description" content="Some description about the slides">
+    <meta name="author" content="You">
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <div id="bg"></div>
+    <div id="header">
+      <div id="logo"></div>
+      <div id="nav">
+        <div class="nav-link"> <a href="/index.html" class="text-white font-bold">Home</a></div>
+        <div class="nav-link"> <a href="/lessons/index.html" class="text-white font-bold">Lessons</a></div>
+        <div class="nav-link"> <a href="/exercices/index.html" class="text-white font-bold">Exercies</a></div>
+      </div>
+    </div>
+    <textarea id="source">## Passing Props
+
+Next we are going to look at passing props to the `<Card />` component. Right now this component should be used to render all the different students, however we have hard-coded all the values in the card to be the same. We can fix this by passing props to the card. So we need to change our code a bit. In `App.js` we need to change:
+
+```JS
+import React from 'react';
+import Card from './Card.js'
+
+export default function App() {
+  return (
+    <div className="App">
+      <Card name="" degree="" quote="" />
+    </div>
+  );
+}
+```
+---
+## Passing Props part 2
+
+Now that we have defined and passed props from the parent component we need to recive and parse those props in the `Card.js` component. So our new code will look like:
+
+```JS
+import React from 'react';
+
+function Card(props) {
+  return (
+    <div className="card">
+      <div className="profilePic"> </div>
+      <div className="cardBio">
+        <div className="name"> <h2 className="text-weight-bold">{props.name}</h2> </div>
+        <div className="degree text-small text-upper text-weight-light"> {props.degree} </div>
+        <div className="quote"> {props.quote} </div>
+      </div>
+    </div>
+  );
+}
+
+export default Card;
+
+```
+As you can see we are defing a new argument in the paramenters of `function Card(props)` if we were to console.log this value we would see something like: 
+```JS
+{
+  name: "...",
+  degree: "...",
+  quote: ".."
+}
+```
+React automatically wraps all props in an object
+---
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script>
+    <script>window.remark || document.write(
+  '<script src="js/vendor/remark.min.js"><\/script>'
+)
+
+    </script>
+    <script src="/js/vendor/remark-language.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Presentation Title</title>
+    <meta name="description" content="Some description about the slides">
+    <meta name="author" content="You">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body>
+    <div id="bg"></div>
+    <div id="header">
+      <div id="logo"></div>
+      <div id="nav">
+        <div class="nav-link"> <a href="/index.html" class="text-white font-bold">Home</a></div>
+        <div class="nav-link"> <a href="/lessons/index.html" class="text-white font-bold">Lessons</a></div>
+        <div class="nav-link"> <a href="/exercices/index.html" class="text-white font-bold">Exercies</a></div>
+      </div>
+    </div>
+    <textarea id="source">## Creating a component
+
+We are going to be creating a component and importing into our `app.js`. We should already have the JSX needed to make the component. We should start by making a new file called `Card.js` in our main directory. That file should look like:
+```JS
+import React from 'react';
+
+function Card(props) {
+  return (
+    <div className="card">
+      <div className="profilePic"> </div>
+      <div className="cardBio">
+        <div className="name"> <h2 className="text-weight-bold"> ... </h2> </div>
+        <div className="degree text-small text-upper text-weight-light"> ... </div>
+        <div className="quote"> ... </div>
+      </div>
+    </div>
+  );
+}
+
+export default Card;
+```
+
+---
+## Creating a component Part 2
+
+Now that we have our component `card.js` we need to import and run it inside the `app.js`, it shold look like: 
+
+```JS
+import React from 'react';
+import Card from './Card.js'
+
+export default function App() {
+  return (
+    <div className="App">
+      <Card />
+    </div>
+  );
+}
+```
+
+---
+## Creating a component Part 3
+
+Finally we need to make components for the rest of our elements, in my version I had a component for the following:
+
+1. Card (<Card />)
+2. Featured Card (<FeaturedCard />)
+3. Header (<Header />)
+
+---
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script>
+    <script>window.remark || document.write(
+  '<script src="js/vendor/remark.min.js"><\/script>'
+)
+
+    </script>
+    <script src="/js/vendor/remark-language.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>

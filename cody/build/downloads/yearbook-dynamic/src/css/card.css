@@ -1,0 +1,17 @@
+.profilePic {
+  width: 200px;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  margin: 10px auto;
+}
+.cardBio {
+  text-align: center;
+  padding: 30px;
+}
+.card {
+  width: 30%;
+  background: white;
+  margin-bottom: 30px;
+}

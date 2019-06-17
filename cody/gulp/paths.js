@@ -8,26 +8,26 @@ module.exports = {
     styl: './src/styl/**/*.styl',
     img: './src/img/**/*',
     files: {
-      jade: './src/templates/*.jade',
+      jade: './src/templates/**/*.jade',
       styl: './src/styl/main.styl'
     }
   },
 
   browserSync: {
-    html: './build/**/*.html',
-    css: './build/css/**/*.css',
-    js: './build/js/**/*.js',
-    img: './build/img/**/*'
+    html: './docs/**/*.html',
+    css: './docs/css/**/*.css',
+    js: './docs/js/**/*.js',
+    img: './docs/img/**/*'
   },
 
   build: {
-    html: './build/',
-    css: './build/css',
-    js: './build/js',
-    img: './build/img',
+    html: './docs/',
+    css: './docs/css',
+    js: './docs/js',
+    img: './docs/img',
   },
 
   deploy: {
-    pages: './build/**/*'
+    pages: './docs/**/*'
   }
 };

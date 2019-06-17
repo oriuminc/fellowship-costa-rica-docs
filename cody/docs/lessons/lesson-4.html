@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Presentation Title</title>
+    <meta name="description" content="Some description about the slides">
+    <meta name="author" content="You">
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <div id="bg"></div>
+    <div id="header">
+      <div id="logo"></div>
+      <div id="nav">
+        <div class="nav-link"> <a href="/index.html" class="text-white font-bold">Home</a></div>
+        <div class="nav-link"> <a href="/lessons/index.html" class="text-white font-bold">Lessons</a></div>
+        <div class="nav-link"> <a href="/exercices/index.html" class="text-white font-bold">Exercies</a></div>
+      </div>
+    </div>
+    <textarea id="source">## Const and Let
+
+Const and Let are how we define variables in JS (or ES6 actually).
+
+``` PHP
+$x = "test string";
+$x = "redefined test string";
+```
+This is fine to do in PHP due to `$` being reassignable, however in JS we have multiple ways to define varables. 
+``` JS
+const x = "test string";
+const x = "redefinded string" 
+``` 
+This will cause an error. That is due to `const` being considered "non-mutable" meaning you are not allowed to re-assign it to a new value. However `Let` works much the same as `$` in PHP. So :
+``` JS
+let x = "test string";
+let x = "redefinded string" 
+``` 
+is fine to do.
+Read more about these opperations [here](https://medium.com/javascript-scene/javascript-es6-var-let-or-const-ba58b8dcde75)
+
+---
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script>
+    <script>window.remark || document.write(
+  '<script src="js/vendor/remark.min.js"><\/script>'
+)
+
+    </script>
+    <script src="/js/vendor/remark-language.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>
