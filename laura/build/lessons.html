@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Presentation Title</title>
+    <meta name="description" content="Some description about the slides">
+    <meta name="author" content="You">
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <div id="bg"></div>
+    <div id="header">
+      <div id="logo"></div>
+    </div>
+    <textarea id="source">## Let's start JS
+
+We are going to be looking at the basic concepts of JS and then moving on to a JS based libary called React.
+
+### Agenda
+
+1. Server Side vs Client Side Rendering 
+2. React Explained
+3. React Structure (Components)
+4. Import / Export
+5. JSX
+6. Const & Let
+7. Maps and Objects
+8. Props
+
+---
+## Server-side vs Client-side 
+
+There are two basic styles of rendering content to a web page, one is Server side Rendering (SSR). This is the style of rendering you have been using to render drupal via PHP. Client side rendering (CSR) opperates a little different and is what JS and JS based libaries use to serve content. Let's look at the below graphic
+
+### SSR
+<img src="/img/lesson/ssr.png" />
+
+<a href="https://www.freecodecamp.org/news/what-exactly-is-client-side-rendering-and-hows-it-different-from-server-side-rendering-bd5c786b340d/"> Server Side Rendering explained </a>
+---
+## CSR Explained 
+
+Let's look at the below graphic
+
+<img src="/img/lesson/csr.png" />
+
+
+<a href="https://www.freecodecamp.org/news/what-exactly-is-client-side-rendering-and-hows-it-different-from-server-side-rendering-bd5c786b340d/"> Server Side Rendering explained </a>
+---
+## React Explained
+
+So, what is react? In simple terms it is a way of building a serving a Single Page Application. Something to note here, is that react is not a language, it is a framework build in Javascript (Meaning it gets rendered on the client-side). React is a very large and complex libary, but for our purposes we will only be looking at a very small portion of what react is capable of. 
+
+Let's first take a look a the life blood of React, Components. The real purpose of a component can be broken into one thing: Rendering HTML. The web based components are a very powerful tool while building Applications, they allow us to break things into much smalled parts called components and import those parts into a wrapper component. React components have serveral parts, let's have a look at what those are: 
+
+1. Classes
+2. Constroctor
+3. Render
+4. Import / Export
+
+You can read more about react [here](https://medium.com/@joshuanelson/react-explaining-explained-13a3fe6e5b9d) and [here](https://dev.to/tiffanywismer/explain-reactjs-like-im-five--2606)
+---
+## React Structure
+
+Let's open the folder where we installed the `npm react-create-app`
+
+We Should see a structure like this : 
+
+```
+- app
+  - node_modules (This is where we install plugins)
+  - src
+    - app.js (This is the component root of our app)
+    - index.js (This is the base of our App)
+    - App.css (styling for the app.js)
+    - index.css (styling for the index.js)
+  - public (This is where images and fonts are stored)
+  - package.json (This has build scripts and defines what plugins we are using)
+```
+Open `App.js` 
+---
+## React Structure
+
+So we should see some familar things in this file, mainly within the render method. Let's break down everything we see: 
+
+### Import
+Imports in react can be used two ways, one is two import a libary package (like we see on line 1) and the second is to import a local file (like on line 2 & 3).
+
+Let's add a new import to App.js
+
+```
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
+import Button from './Button.js';
+```
+
+So What is this import doing? It will look for the file specfied in the path `'./Button.js'` inside that file it will look for either a named export or a default export. You can see an example of a default export on line 26 of App.js you can read a little more [here](https://medium.com/@thejasonfile/a-simple-intro-to-javascript-imports-and-exports-389dd53c3fac)
+
+Obvisoulsy this file does not exsist yet, but we will make it in the next step.
+---
+## React Structure Part 2
+
+### Export function
+
+The next thing we see is the export function, is this case it's called App. As you can see on line 5 (where it is defined) and line 26 where it is exported.
+
+`export default App;`
+
+Inside the function is really just the return and then the JSX, we will get into both a little later. Most importanly we have to remeber that every react component must be exported in order to be used.
+
+So every export can broken into two parts, one is the define of the function or class that you want to export. So What we see on line 5 could be written a few different ways: 
+
+```
+function App() {
+  ...
+}
+export default function App() {
+  ...
+}
+```
+you can read a little more [here](https://medium.com/@thejasonfile/a-simple-intro-to-javascript-imports-and-exports-389dd53c3fac)
+---
+## React Structure Part 3
+
+### JSX
+
+Next up is everything inside the `return` of the App function. This is called JSX and is a substitute for HTML. luckly for us it is formated much the same. So Lets's look at some of the differencies. Starting at line 7:
+In HTML this line would look like `<div class="App">` however in JSX `class` is a reserved JS term so we substitute `className` (Note the "N" here is capitlized) This refers to camel case, which can be read about [here](https://www.w3schools.com/js/js_conventions.asp)
+
+So nothing too dramatic here, for the most part JSX follows the same type of rules that HTML does. So, why do we use it over HTML? That is becuase JSX allows for JS injection, lets take a look at line 9 `<img src={logo} className="App-logo" alt="logo" />` specfically the `src={logo}` this is using a JS defined varible as an image source. We can read a little more about JSX [here](http://buildwithreact.com/tutorial/jsx) and [here](https://reactjs.org/docs/introducing-jsx.html)
+
+---
+## React Structure Part 3
+
+### JSX Part 2
+
+Another big rule to follow while creating JSX for react, is that only one parent is allowed in the return, So: 
+```
+return (
+  <div className="wrap">
+    <div className="child">
+    ...
+    </div>
+  </div>
+)
+```
+Is allowed, but :
+```
+return (
+  <div className="wrap">
+  </div>
+  <div className="child">
+    ...
+  </div>
+)
+```
+Is not
+---
+## Const and Let
+
+Const and Let are how we define variables in JS (or ES6 actually).
+
+``` PHP
+$x = "test string";
+$x = "redefined test string";
+```
+This is fine to do in PHP due to `$` being reassignable, however in JS we have multiple ways to define varables. 
+``` JS
+const x = "test string";
+const x = "redefinded string" 
+``` 
+This will cause an error. That is due to `const` being considered "non-mutable" meaning you are not allowed to re-assign it to a new value. However `Let` works much the same as `$` in PHP. So :
+``` JS
+let x = "test string";
+let x = "redefinded string" 
+``` 
+is fine to do.
+Read more about these opperations [here](https://medium.com/javascript-scene/javascript-es6-var-let-or-const-ba58b8dcde75)
+
+---
+## Maps and Objects 
+
+Next let's look at the `map` method in ES6, in basic terms the map is a loop that goes through an array and returns per iteration. In JSX we can leverage this to render HTML inside the return function. This looks something like:
+``` JS
+  const test = ["value", "value2", "value3"]; // this defines an array
+  test.map((value, index) => { // the map will run 3 times, the value and index will change every iteration
+    return `<h1>${value} || ${index}</h1>` // This will return the current iteration
+  });
+```
+Let's break down everything we see here, we have an array defined called array, it contains 3 elements ("value", "value2", "value3"). This means the map will loop three times with a unique iteration each time. Next up is the `test.map` this is a method chained to a variable. Where `test` is a variable we defined and `map` is a JS global method. The `.` is the chain. You can read more about this [here](https://medium.com/backticks-tildes/understanding-method-chaining-in-javascript-647a9004bd4f) and [here](https://codeburst.io/javascript-learn-to-chain-map-filter-and-reduce-acd2d0562cd4)
+
+Lets take a look at the output from something like this:
+
+## value 0
+## value2 1
+## value3 2
+
+We can see here that the index actually starts at 0
+---
+## Maps and Objects Part 2
+
+Objects in JS operate like arrays, the big difference is objects have keys that repersent each values. Consider this difference: 
+
+``` JS
+  const exampleArray = ["john", 44, "Canada"]; // this defines an array
+  const exampleObject = {name: "John", age: 44, location: "Canada"}; //This defines an Object
+```
+The big difference here is how we extract these values, so with an array we have to use a number to reference individual values. Where objects we can use the keys. So it ends up looks like: 
+``` JS
+  const name = exampleArray[0] // John
+  const name = exampleObject.name
+```
+This is great becuase we don't always know what position our value will be in. You can read more about objects [here](https://www.w3schools.com/js/js_object_definition.asp)
+---
+## React Props
+
+React has a way of passing props to and from components, these are called props. Let's first have a look at our `Card.js` component. Right now it is just being called and displayed via our return in the `App.js`. But let's say we wanted this card to be used for multiple people, right now we would have to make a different card component for each person. This is where props come in handy 
+``` JS
+<Card />
+```
+To
+``` JS
+<Card name="John Smith">
+```
+and in our `Card.js` we will change :
+``` JS
+export default function Card() {
+```
+To 
+``` JS
+export default function Card(props) {
+```
+and finally we will change 
+``` JS
+<div className="card">
+  ...
+  <h4> Mary Sue </h4>
+  ...
+</div>
+```
+To 
+``` JS
+<div className="card">
+  ...
+  <h4> {props.name} </h4>
+  ...
+</div>
+```
+You can read all about props [here](https://www.robinwieruch.de/react-pass-props-to-component/) and [here](https://www.agiliq.com/blog/2018/05/understanding-react-state-and-props/)
+---
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script>
+    <script>window.remark || document.write(
+  '<script src="js/vendor/remark.min.js"><\/script>'
+)
+
+    </script>
+    <script src="js/vendor/remark-language.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

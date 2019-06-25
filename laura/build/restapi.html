@@ -1,0 +1,316 @@
+
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Presentation Title</title>
+    <meta name="description" content="Some description about the slides"/>
+    <meta name="author" content="You"/>
+    <link rel="stylesheet" href="css/main.css"/>
+  </head>
+  <body>
+    <div id="bg"></div>
+    <div id="header">
+      <div id="logo"></div>
+      <div id="nav">
+        <div class="nav-link"><a href="/index.html" class="text-white font-bold">Home</a></div>
+        <div class="nav-link"> <a href="/intro.html" class="text-white font-bold">Intro</a></div>
+        <div class="nav-link"> <a href="/backend.html" class="text-white font-bold">Backend</a></div>
+        <div class="nav-link"> <a href="/theming.html" class="text-white font-bold">Theming</a></div>
+        <div class="nav-link"> <a href="/restapi.html" class="text-white font-bold">React</a></div>
+      </div>
+    </div>
+    <textarea id="source">## Let's Get Ready to React!
+
+We are going to talk about when and why to use a decoupled architecture, take a look at REST API configuration and fundamentals, expose some JSON endpoints, and make a request to those endpoints and view the response in Postman.
+
+### Agenda
+
+1. Intro to decoupled architecture
+2. When is decoupling a good idea?
+2. Intro to Drupal REST API
+4. Create a REST Export display in a view
+5. Create a custom REST plugin
+6. Use Postman to make a request and view the response
+7. Examples of how to include Blocks and Views in your custom REST plugin
+
+---
+## Introduction to Decoupled
+
+### What is decoupling?
+
+Drupal is a powerful solution for architecting a website. It lets you easily organize data into reusable components and allows you to give a lot of power to content editors to create many different kinds of content and layouts. Drupal also has the power to present the data. 
+
+Nowadays, though, a lot of companies and organizations need to distribute their content across `different channels` including web, mobile, smart TVs, wearables and conversational UIs. And increasingly what they look for in a content management system is the ability for it to act as a single source of truth, so that a content editor can `create once, publish everywhere`.
+
+Developers can use Drupal as the source of truth using Drupal's core `REST API` to create web services.
+
+A fully decoupled website can also be called `headless`. The head refers to the Drupal presentation layer or theme. In the case of a decoupled website, the presentation occurs somewhere else besides Drupal. This is also the meaning of `decoupled`: the front-end is not coupled with the backend, it is on a different platform.
+
+There are also partially or `progressively decoupled` websites, which may feature decoupled components that are rendered within or alongside the 
+Drupal theme.
+
+---
+## When to use Decoupled Drupal
+
+### Why use a JavaScript framework like React?
+
+* Using a JS framework allows developers to take full control over the rendered markup and user experience (Drupal front end is somewhat pre-defined, so you are operating with some constraints)
+
+* JS frameworks help developers create highly interactive websites which enable users to interact with parts of content while a page is not yet fully loaded
+
+### Why else is decoupling a good idea?
+
+* Front end and back end teams can work independently of each other which can improve velocity
+
+* It is future proof because you can completely swap out the front end if you want to in a redesign, and the data will remain in tact
+
+### What are the drawbacks of decoupling?
+
+* Layout control by editors is not as easy
+
+* The design is completely tailored rather than allowing for flexibility
+
+* Requires React developers in addition to Drupal developers
+
+* There are some complexities in maximizing performance to ensure there are as few requests as possible and to cache the API
+
+* A decoupled architecture is more complex to debug
+
+* Drupal modules like Google Analytics and Localization that work on the front end would have to be written from scratch for a custom decoupled architecture
+
+* More costly to maintain
+
+### Use it when:
+
+* You need more freedom in structuring and displaying content
+
+* You need to publish on multiple platforms
+
+* You extract data from multiple resources including social media, CMS, video management systems, etc
+
+
+---
+## Intro to Drupal REST API
+
+Web Services make it possible for other applications to read and update information on your site via the Web. REST is one of a number of different ways of making Web Services available on your site. 
+
+The REST API supports the following HTTP methods to make requests to web services:
+
+* GET (retrieve data)
+* POST (create new data)
+* PATCH (modify data)
+* DELETE (you know)
+
+### Creating REST Web Services
+
+Each rest web service consists of a plugin and a config entity that specifies permissions. 
+
+There are several ways to create and configure REST resources:
+
+`1. Create a REST Export display in a view`
+
+If you only need view output, this is an easy way to create an endpoint.
+
+`2. The REST UI`
+
+You can use this contributed module to activate and configure REST resources easily. The downside to using REST UI is that you don't get a lot of control over what is displayed at your endpoints. So it works well for exposing individual pieces of content or views, but if you want to display a more complex set of data, you will need a custom endpoint.
+
+`3. Create a plugin and add configuration`
+
+If you need a custom solution, you can create a plugin (there is a Drupal Console command for this!). Once you have created a plugin, you can display any combination of blocks, views, and individual content.
+
+The plugin will then be available for use with REST UI where you can configure it, or you can manually code configuration, using the config that is included in the core REST module to get started. 
+
+
+---
+## Create a REST Export display in a view
+
+If you only need view output, creating a REST export in a view is an easy way to create an endpoint. Let's expose that view as a REST Export. 
+
+1.  Go to your Yearbook view of People
+
+2.  Add a REST export display
+
+3. Choose JSON as the serializer format
+
+4. In your field row settings, select Raw Output
+
+5. Provide a path. This will be your endpoint.
+
+---
+## Create a custom REST plugin
+
+1. Use Drupal Generate to generate a custom rest resource:
+
+```JS
+drupal generate:plugin:rest:resource  \
+--module="fellowship_core"  \
+--class="FellowshipRestResource"  \
+--plugin-id="fellowship_rest_resource"  \
+--plugin-label="Fellowship rest resource"  \
+--plugin-url="api/v1/fellowship-info"  \
+--plugin-states='GET'
+```
+2. Configure GET for your plugin using the REST UI 
+
+* Install the REST UI module: https://www.drupal.org/project/restui)
+* Go to the REST UI admin screen: /admin/config/services/rest
+* Find Fellowship Rest Resource in the list of resources and `enable` it
+* Enable GET, choose JSON format and choose `cookie` authentication
+
+3. We need to give permission for an anonymous user to access the endpoint (otherwise we need to configure authentication)
+
+* Go to user permissions admin at `/admin/people/permissions`
+
+* Under `RESTful Web Services`, check the permission for 'Access GET on Fellowship rest resource resource' for Anonymous User.
+
+4. Change the get() method in your plugin to:
+
+```PHP
+  public function get() {
+
+    $response = ['message' => 'Hello, this is a rest service'];
+    return new ResourceResponse($response, 200);
+  }
+```
+
+---
+## Make a request to your resource using Postman
+
+* If you don't already have Postman, install Postman: https://www.getpostman.com/downloads/
+* Create a GET request: http://fellowship.ddev.local/fellowship-info?_format=json
+* You should see the response appear below!
+
+<img src="/img/postman-request.png" style="width: 60%" />
+
+---
+## Example of how to include Drupal block in a custom REST web service
+
+A block is useful if you only need to display one of something (a single image, or a single piece of content)
+
+1. Create a custom block type in the block admin UI
+
+* Go to Block Types tab at `Structure > Block Layout > Custom Block Library tab > Block Types sub tab (admin/structure/block/block-content/types)`
+
+* Add custom block type with whatever fields you need
+
+2. Add a Custom Block of that Type
+
+* Go to Custom Block Library at `Structure > Block Layout > Custom Block Library tab (admin/structure/block/block-content)`
+
+* Add a Custom Block, choose your Custom Type, fill in the fields
+
+3. Go to the REST UI at `Configuration > Web services > REST (/admin/config/services/rest)` and enable Custom Block
+
+* Granularity: Resource
+* Methods: GET
+* Formats: json
+* Authentication: cookie
+
+Now you can make a request to get the block data with postman by making a GET request to:
+
+`http://[your local url]/block/1?_format=json`
+
+Or if you want to add a custom block to your custom rest resource, you could do it like this:
+
+At the top of your file:
+
+```PHP
+use Drupal\block_content\Entity\BlockContent;
+```
+
+In your get() function:
+
+```PHP
+
+  public function get() {
+
+    // The number in BlockContent::load(1) is the block ID.
+    $hero_block = BlockContent::load(1);
+
+    // The field names need to match the field names in your block.
+    $hero_title = $hero_block->get('field_title')->value;
+    $hero_description = $hero_block->get('field_description')->value;
+    $hero_image_url = $hero_block->get('field_image')->entity->uri->url;
+
+    $response['hero'][] = [
+      'hero_title' => $hero_title,
+      'hero_description' => $hero_description,
+      'hero_image_url' => $hero_image_url,
+    ];
+
+    return new ResourceResponse($response, 200);
+
+  }
+
+  ```
+
+
+
+---
+## Examples of how to include a Drupal view in a custom REST web service
+
+A view is useful if you need to display more than one of something (for example a list of news items).
+
+1. Create the content type (like News), create some news nodes, create a news view.
+
+* Choose Content display instead of Fields display
+* Under `Use Pager`, select `Display a specified number of items` and choose the exact number of items you need (for example, 3 news items)
+
+If you want to add your view to your custom rest resource, you could do it like this:
+
+At the top of your file:
+
+```PHP
+use Drupal\views\Views;
+```
+
+In your get() function:
+
+```PHP
+
+  public function get() {
+
+    // Replace 'teensmart_news' with the name of your view.
+    $news_view = Views::getView('teensmart_news');
+    $news_view->execute();
+    
+    // The foreach function loops through each row of the view and adds the field values to the array.
+    foreach ($news_view->result as $row) {
+      $news = Node::load($row->_entity->id());
+      $response['news_items'][] = [
+
+        // The names of the fields need to match the field names in your content type.
+        'title' => $news->getTitle(),
+        'description' => $news->get('field_description')->value,
+        'image_url' => $news->get('field_image')->entity->uri->url,
+        'link' => [
+          'uri' => $news->get('field_link')->uri,
+          'text' => $news->get('field_link')->title,
+        ],
+      ];
+    }
+
+    return new ResourceResponse($response, 200);
+
+  }
+
+  ```
+
+
+
+---
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script>
+    <script>window.remark || document.write(
+  '<script src="js/vendor/remark.min.js"><\/script>'
+)
+
+    </script>
+    <script src="js/vendor/remark-language.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

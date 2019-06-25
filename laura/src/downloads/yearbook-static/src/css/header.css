@@ -1,0 +1,15 @@
+.header {
+  background: #3d5261;
+  padding: 30px;
+}
+.innerHeader {
+  background: #30404c;
+  padding: 30px;
+}
+.logo {
+  max-width: 10%;
+}
+.classInfo {
+  margin-top: 30px;
+  min-height: 30vh;
+}

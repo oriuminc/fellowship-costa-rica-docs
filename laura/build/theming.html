@@ -1,0 +1,148 @@
+
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Presentation Title</title>
+    <meta name="description" content="Some description about the slides"/>
+    <meta name="author" content="You"/>
+    <link rel="stylesheet" href="css/main.css"/>
+  </head>
+  <body>
+    <div id="bg"></div>
+    <div id="header">
+      <div id="logo"></div>
+      <div id="nav">
+        <div class="nav-link"><a href="/index.html" class="text-white font-bold">Home</a></div>
+        <div class="nav-link"> <a href="/intro.html" class="text-white font-bold">Intro</a></div>
+        <div class="nav-link"> <a href="/backend.html" class="text-white font-bold">Backend</a></div>
+        <div class="nav-link"> <a href="/theming.html" class="text-white font-bold">Theming</a></div>
+        <div class="nav-link"> <a href="/restapi.html" class="text-white font-bold">React</a></div>
+      </div>
+    </div>
+    <textarea id="source">## Theming
+
+A `theme` in Drupal is a collection of the CSS, HTML and JavaScript that you use to give your website a certain look and feel. We are going to create a theme, override a template and add CSS for our custom block.
+
+### Agenda
+
+1. Create a Custom Theme
+2. Override a Twig Template
+3. Add CSS
+
+
+---
+## Create a Custom Theme
+
+Drupal comes with six themes that you can use or extend and modify, or you can build your own from scratch. 
+
+An easy way to create a custom theme is to base it on a core theme. This way, your custom theme inherits almost everything from the base theme, and you can then override the base theme to make it your own. 
+
+We can use Drupal Console to create a new custom theme based on `Bartik`, which is the default theme. Give it a try. 
+
+```JS
+drupal generate:theme  
+--theme="Fellowship"  
+--machine-name="fellowship"  \
+--theme-path="themes/custom"  \
+--description="My Awesome Fellowship theme"  \
+--core="8.x"  \
+--package="Custom"  \
+--global-library="global-styling"  \
+--base-theme="bartik"
+```
+
+### Add Regions
+
+An important thing to know about extending themes is that the one thing themes don’t inherit automatically is regions. So if you want to keep the same regions as your base theme, you need to copy the regions from the .info.yml file of your base theme (Bartik) into the .info.yml file of your custom theme. Go ahead and do that now.
+
+---
+## Create a Custom Template for your Block
+
+### It's all about the file name
+
+(Twig Naming Conventions) https://www.drupal.org/docs/8/theming/twig/twig-template-naming-conventions
+
+Take a look at the block template `naming conventions`. Can you figure out what to name your twig file in order to override the custom block? Take a look now and see if you can figure it out!
+
+Another way to find out what to name your twig file to override any element is to turn on the Kint module, which is part of the Devel module. Then, enable Kint debugging by doing the following:
+
+In `/sites/default`, copy the `default.services.yml` file and rename it to `services.yml`. Then under Kint debugging, change `enable debugging: FALSE` to `enable debugging: TRUE`. Clear your cache. Now when you inspect your code, you will see twig naming suggestions above the element you are inspecting. 
+
+Inspect the custom block to find out what to name your template file!
+
+<img src="/img/twig.png" style="width: 60%" />
+---
+## The Twig Template
+
+Once we know what we need to name our twig file, we need to create a `/templates` directory in our theme. We can place twig files anywhere in this directory and they will be detected. 
+
+There is already a default block template that we need to override. We want to maintain the structure of the original file. So we want to copy the html from the file that it is overriding, which in this case is `web/core/themes/bartik/templates/block.html.twig`. Copy that file and paste it into the fellowship theme under `/templates`. Now rename it to override the welcome block. If you haven’t guessed by now, you need to rename it to either `block—welcome-block.html.twig` or `block—welcomeblock.html.twig` (either will work).
+
+Try adding some words or extra html inside the block to see if the override worked. You will need to clear the cache before you refresh your page to see the change.
+
+Now, add a custom class (such as `welcome-block`) to the array of classes at the top of the html. We will use this class in our CSS to target the block.
+
+<img src="/img/welcome-block.png" style="width: 60%" />
+
+---
+## Add CSS
+
+CSS and JS are organized into `libraries` in Drupal. We can attach libraries globally, or we can attach them only to one page or to a template that affects a subset of pages. By adding CSS and JS to the minimum number of pages, we cut down on page load time and improve the performance of the site.
+
+Now let's add the library:
+
+1. Add this to the top of your twig template file: 
+
+```TWIG
+{{ attach_library('fellowship/welcome-block') }}
+```
+
+2. Create a file in the root of your theme called `[theme-name].libraries.yml` (in my case it's `fellowship.libraries.yml`).
+
+3. Add a library called `welcome-block`. Your `fellowship.libraries.yml` file should look like this:
+
+```TWIG
+welcome-block:
+  css:
+    base:
+      css/block.css: {}
+```
+
+Then, create a `/css` directory in the root of your theme and add a CSS file called `block.css`, so that the file is in `/css/block.css`. <em>Now we're ready to add custom CSS!</em>
+
+Try this (or try your own!):
+
+```CSS
+.welcome-block {
+    border-radius: 40%;
+ }
+
+.sidebar .block.welcome-block h2 {
+    color: #fff;
+    font-size: 36px;
+    padding-top: 20px;
+}
+
+.sidebar .block.welcome-block {
+    background-color: #8BC34A;
+    height: 150px;
+}
+```
+
+Remember when overriding CSS that the most specific CSS declaration for an element will be the one that is used. So if there is CSS for `.sidebar .block`, you could use `.sidebar .block.welcome-block` to override it.
+
+---
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script>
+    <script>window.remark || document.write(
+  '<script src="js/vendor/remark.min.js"><\/script>'
+)
+
+    </script>
+    <script src="js/vendor/remark-language.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

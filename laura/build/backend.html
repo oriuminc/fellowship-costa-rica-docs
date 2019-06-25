@@ -1,0 +1,262 @@
+
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Presentation Title</title>
+    <meta name="description" content="Some description about the slides"/>
+    <meta name="author" content="You"/>
+    <link rel="stylesheet" href="css/main.css"/>
+  </head>
+  <body>
+    <div id="bg"></div>
+    <div id="header">
+      <div id="logo"></div>
+      <div id="nav">
+        <div class="nav-link"><a href="/index.html" class="text-white font-bold">Home</a></div>
+        <div class="nav-link"> <a href="/intro.html" class="text-white font-bold">Intro</a></div>
+        <div class="nav-link"> <a href="/backend.html" class="text-white font-bold">Backend</a></div>
+        <div class="nav-link"> <a href="/theming.html" class="text-white font-bold">Theming</a></div>
+        <div class="nav-link"> <a href="/restapi.html" class="text-white font-bold">React</a></div>
+      </div>
+    </div>
+    <textarea id="source">## Let's do some backend development!
+
+We are going to look at Drupal blocks and how to manage them. Then we are going to create a custom module that adds our own custom block.
+
+### Agenda
+
+1. What are Blocks?
+2. Managing Blocks
+3. Create a Custom Module
+4. Create a Block Plugin
+5. Parts of a Module Explained
+
+---
+## What's a Block?
+
+A block is a box of content that we can place into any area of a page, such as the sidebar region, the header, or the footer. A block can stay in place while the main content of the page changes, and you can control which pages it displays on and who sees it.
+
+<img src="/img/blocks.png" />
+
+The default Drupal configuration comes with two blocks enabled, which you can see in the sidebar: `Search` and `Tools`.
+
+Let’s change the way those blocks are positioned.
+
+---
+## Managing Blocks
+
+### Exercise
+
+1. In the Admin UI, go to `Structure > Block layout`. Can you find the `Search` and `Tools` blocks? 
+
+2. Try putting one of them in a different region. 
+
+3. Save blocks at the bottom of the screen and look at the front page again. 
+
+<em>What has changed?</em>
+
+You can see that not only the position of the blocks but the way they look changes depending on which region they appear in. Their appearance is controlled by the CSS in your `theme` (we'll get to that later).
+
+The `regions` you see on the Block page are defined in your theme. When you create a custom theme, you can define the regions any way you want. 
+
+In addition to the standard blocks that come with core Drupal, we can create our own custom blocks. To do this, we need to create a `custom module`. 
+
+
+---
+## Create a Custom Module
+
+Creating custom modules, themes and plugins (like blocks) has gotten very easy since the introduction of Drupal Console. With Drupal console, you can create a basic version of any of many common Drupal elements very easily from the command line. Let’s give it a try!
+
+### Using Drupal Console
+
+Open your terminal and navigate to your project folder.
+
+If you type `drupal` in the command line, you should see a list of all drupal console commands.
+
+<img src="/img/drupal-console.png" />
+
+Which one do you think you should use to generate a module? Hint: there are descriptions next to the commands. You will use `drupal` followed by the correct command to begin the process.
+
+---
+## Using Drupal Console
+
+Follow the steps to generate your module. You can call it anything you like. A typical naming convention is to use the name of the larger project followed by the main function of the module. For a module for this project that contains various functionality, you might call it `Fellowship Core`.
+
+Here is an example:
+
+```JS
+drupal generate:module 
+--module="Fellowship Core" // Displays on Extend page
+--machine-name="fellowship_core" // Only letters and underscores. You will use the machine name later to specify the module for the block
+--module-path="/modules/custom" 
+--description="Core functionality for Fellowship" // Displays on Extend page
+--core="8.x"  
+--package="Custom" // Groups similar modules on Extend page
+--module-file=”yes” // Provides hook_help by default
+--composer=”no” // You can use a composer file to download dependencies, but we don’t need to do that for this exercise
+--twigtemplate=”no”
+```
+
+Now take a look in your project files. You should see a folder under `/modules/custom` with your custom module in it.
+
+Navigate to `Extend` in the Admin UI and type the name of your module in the search field. You should see your custom module in the list of modules. Enable it.
+
+Your custom module now exists, but it doesn’t do anything yet. We need to add some functionality to it. 
+
+<em>Let’s add a custom block.</em>
+
+
+---
+## Create a Block Plugin
+
+A block in Drupal is a type of `Plugin`. 
+
+### What’s a Plugin?
+
+A `Plugin` is a reusable piece of code. It can be used in various places in a Drupal project. Plugins are generally represented somehow in the Admin UI as an item that can be manipulated: a widget, a block, a field, etc.
+
+Type `drupal` again in your terminal in the root of your project. You should see a list of available Drupal Console commands. 
+
+<em>Do you see a command that will generate a block plugin?</em>
+
+
+---
+## Generate the Block
+
+Go ahead and generate the block. Let’s make it a Welcome block that will display a welcome message. 
+
+Here is an example (feel free to customize it):
+
+```JS
+drupal generate:plugin:block
+--module="fellowship_core" // The machine name of our custom module
+--class="WelcomeBlock" 
+--label="Welcome block" // You’ll see this label in the Admin UI.
+--plugin-id="welcome_block"  
+--theme-region=[] // Just leave this empty for now, we’ll choose the region in the Admin UI.
+--inputs=”no”
+```
+
+The `generate block` dialogue includes an option to create a form for your block, that lets you enter the content of the block in the Admin UI. But we are going to skip that for now in order to keep it simple.
+
+Let’s take a look at our module!
+
+
+---
+## Customize the Block
+
+You'll see a new directory in our module, the `/src` directory. It contains the block plugin in `/src/Plugin/Block/WelcomeBlock.php`
+
+Open the `WelcomeBlock.php` file. It contains just one function, which is `build()`. To customize this block to display our own custom message, we need to modify the build array in the `build()` function. Try this (feel free to customize with your own message):
+
+```PHP
+  public function build() {
+    $build = [];
+    $build['welcome_block']['#markup'] = 'Welcome to Fellowship, yo!';
+
+    return $build;
+  }
+```
+### Place the block
+
+In the Admin UI, go to `Structure > Block layout`.
+
+Choose a region and place your block in it. Take a look at your front page. You should feel very welcomed now. That feels good.
+
+<em>Congrats on completing your first backend Drupal task. Now, let's theme the block!</em>
+
+---
+## The parts of a module, explained
+
+It is very nice that we have Drupal Console to help us create modules. We used to have to create them from scratch. But as a developer, you will do work on every part of a module, so it is important that you know the module structure inside-out.
+
+### .info.yml
+
+The info file tells Drupal about our module.
+
+- The Name and Description appear on the Extend page
+- Package provides grouping on the Extend page
+- Core version tells Drupal that it is a Drupal 8 module
+- Type allows composer to install the module in the correct location
+
+### .module
+
+This file contains any Drupal hooks that you add. Hooks are triggered by many different Drupal events. Adding a hook means that the code you add in the hook will be triggered when the Drupal event occurs. Common examples would be after a node is saved, or before a view renders on a page.
+
+Drupal generate adds hook_help to the .module file by default. Hook help provides an entry on the Help page. You can customize your entry however you wish. 
+
+
+
+---
+## Classes and Object-oriented Programming in Drupal
+
+Let's take another look at your Welcome Block plugin. There are several important things to learn about this file.
+
+A `plugin` is a `class` that acts in a specific way.
+
+In `object-oriented programming (OOP)`:
+- classes are a template for an object
+- In the case of a block plugin, the object will be a block
+- In this class, we are defining how our block is constructed.
+
+### Extending Drupal base classes
+
+In Drupal, there are generic classes for common elements like blocks, forms, and widgets. When we create custom versions of these elements, we `extend` base classes and create a custom version of them. Our custom version inherits all of the functionality of the base class and we can override and add more functionality as needed.
+
+Take a look at line 15 in your WelcomeBlock.php file: 
+- `WelcomeBlock` is the name of your class
+- It extends `BlockBase`
+- `BlockBase` is the generic class for a Drupal block and contains functionality that we can override and extend. 
+
+In our case, all we want to do is override the build() method.
+
+Plugin classes are discovered by Drupal using their `annotation`. Look above your class name. The area from line 7 – 14 is `annotation`. You define the ID of your plugin here. The admin label will be displayed in the Admin UI. Once Drupal has discovered your class using this annotation, it will be available in the Admin UI. 
+
+### Namespacing
+
+All classes in Drupal need a namespace. The namespace is part of the identity of the class, and is the way you can use the class in other areas of the code. Look at the namespace of our class on line 3. It starts with Drupal, then uses the name of our module, then the path within the /src file. Notice that /src is not included in the path. This is because all class files are assumed to be located in the /src directory.
+
+
+---
+## Module Standards
+
+### Organizing your Classes
+
+The structure follows a convention for organizing class files in Drupal. 
+
+- All class files go in the /src folder
+- Within the /src folder, there is an organizational convention that you should follow, that all Drupal modules follow so that you can easily find classes in them
+- Plugins should go in a /src/Plugin directory
+- Blocks are a type of Plugin that can go in its own subdirectory, /src/Plugin/Block
+
+The advantages of this type of organization become clear if you look at a module that has many classes in it.
+
+### Naming Conventions and Cases
+
+Note that in Drupal, there are several different types of case that you can use to name files, functions, and classes. Follow the example provided by Drupal Console. You can always also look at Drupal core files for code examples. 
+
+The cases are as follows:
+
+- camelCase (first word is not capitalized, often used for function names)
+- PascalCase (first word is capitalized, used often for class names)
+- snake_case (all lowercase, words separated by underscore, often used for module names and plugin IDs)
+
+It is important to have clean, well-organized and well-documented code! Your teammates and your future self will thank you.
+
+When you have time, it is worthwhile to take a read through the [Drupal Coding Standards] (https://www.drupal.org/docs/develop/standards/coding-standards).
+
+---
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script>
+    <script>window.remark || document.write(
+  '<script src="js/vendor/remark.min.js"><\/script>'
+)
+
+    </script>
+    <script src="js/vendor/remark-language.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

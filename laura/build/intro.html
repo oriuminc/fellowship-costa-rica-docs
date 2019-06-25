@@ -1,0 +1,63 @@
+
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Presentation Title</title>
+    <meta name="description" content="Some description about the slides"/>
+    <meta name="author" content="You"/>
+    <link rel="stylesheet" href="css/main.css"/>
+  </head>
+  <body>
+    <div id="bg"></div>
+    <div id="header">
+      <div id="logo"></div>
+      <div id="nav">
+        <div class="nav-link"><a href="/index.html" class="text-white font-bold">Home</a></div>
+        <div class="nav-link"> <a href="/intro.html" class="text-white font-bold">Intro</a></div>
+        <div class="nav-link"> <a href="/backend.html" class="text-white font-bold">Backend</a></div>
+        <div class="nav-link"> <a href="/theming.html" class="text-white font-bold">Theming</a></div>
+        <div class="nav-link"> <a href="/restapi.html" class="text-white font-bold">React</a></div>
+      </div>
+    </div>
+    <textarea id="source">## What is Drupal?
+
+Drupal is a Content Management System. It contains a core set of tools that you can use to store, manage and display content.  
+
+Let’s take a look at this diagram:
+
+<img src="/img/drupal-layers.jpg" />
+
+This gives you an idea of the various layers of Drupal.  
+
+---
+## Some Helpful Terminology
+
+### Backend and Front End
+
+Storing and managing of content we generally call `Backend`. That includes modules and configuration.
+
+Display of content of content is called `Front end`. That includes the HTML, CSS and JavaScript. We organize these files into “themes” that give us a particular set of front end functionality and make our site look a certain way. 
+
+### UI, Terminal, and Code
+
+`Admin UI`: This is admin interface in your local installation of Drupal. UI is short for “User Interface”. It is one of the ways we can make configuration changes for Drupal. It is helpful for you to take some time to get to know the Admin UI, because you will use it a lot in development.
+
+`Terminal`: This is the command line interface.
+
+`Code` or `Project files`: This refers to your Drupal code. You should have a text editor set up that you can use to navigate and make changes to your files.
+
+---
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script>
+    <script>window.remark || document.write(
+  '<script src="js/vendor/remark.min.js"><\/script>'
+)
+
+    </script>
+    <script src="js/vendor/remark-language.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

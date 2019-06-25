@@ -1,0 +1,24 @@
+doctype html
+html
+  include inc/head
+  body
+    include inc/header
+    div#area
+      h1 Choose a session
+      #cardArea
+        .card.bg-purple
+          h2.text-white Intro: What is Drupal?
+          p.text-regular This covers the layers of Drupal and some helpful terminology 
+          a(href="/intro.html").font-bold.text-white View Slides
+        .card.bg-red
+          h2.text-white Backend
+          p.text-regular This covers blocks and block management, creating custom modules and plugins, and the parts of a module explained
+          a(href="/backend.html").font-bold.text-white View Slides
+        .card.bg-teal
+          h2.text-white Theming
+          p.text-regular This covers how to extend a base theme to create a custom theme, override a template, and add CSS
+          a(href="/theming.html").font-bold.text-white View Slides
+        .card.bg-black
+          h2.text-white REST API and Decoupled Architecture
+          p.text-regular This covers REST API config and fundamentals and how to expose Drupal endpoints
+          a(href="/restapi.html").font-bold.text-white View Slides

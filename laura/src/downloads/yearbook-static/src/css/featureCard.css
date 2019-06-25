@@ -1,0 +1,24 @@
+.featuredCard {
+  margin: 40px 0;
+}
+.featurePic {
+  width: 75%;
+  background-position: right;
+  background-size: cover;
+}
+.bio {
+  width: 35%;
+  text-align: center;
+  padding: 30px;
+  background: white;
+}
+.role {
+  margin-bottom: 40px
+}
+.degree{
+  margin-top: 15px;
+}
+.quote {
+  margin-top: 25px;
+  line-height: 30px;
+}

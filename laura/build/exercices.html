@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Presentation Title</title>
+    <meta name="description" content="Some description about the slides">
+    <meta name="author" content="You">
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <div id="bg"></div>
+    <div id="header">
+      <div id="logo"></div>
+    </div>
+    <textarea id="source">## Exercice List
+
+Below is an order list of all the exercices we will be doing
+
+### Agenda
+
+1. Create CSS
+2. Create Some JSX 
+3. Import Component
+4. Props
+5. Import some JSON
+6. Classes
+7. Changing the state
+8. Making an API call
+
+---
+## Importing CSS
+
+React still uses CSS, it is unmodified from what we are used to. We can import CSS and make it available to our entire project like this: 
+
+```JS
+import './app.css';
+```
+
+All you have to do is make sure an app.css exsists in the same directory, if it is it will be available for your entire application.
+---
+## Creating JSX
+
+For this we are going to be looking at creating a card for our inividual student from your yearbook. You can re-use your HTML and CSS from prevoius work here.
+
+```JS
+export default function App() {
+  return (
+    <div className="App">
+      <div className="card">
+        <div className="profilePic" />
+        <div className="cardBio">
+          <div className="name"> <h2 className="text-weight-bold"> ... </h2> </div>
+          <div className="degree text-small text-upper text-weight-light"> ... </div>
+          <div className="quote"> ... </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+```
+---
+## Creating a component
+
+We are going to be creating a component and importing into our `app.js`. We should already have the JSX needed to make the component. We should start by making a new file called `Card.js` in our main directory. That file should look like:
+```JS
+import React from 'react';
+
+function Card(props) {
+  return (
+    <div className="card">
+      <div className="profilePic"> </div>
+      <div className="cardBio">
+        <div className="name"> <h2 className="text-weight-bold"> ... </h2> </div>
+        <div className="degree text-small text-upper text-weight-light"> ... </div>
+        <div className="quote"> ... </div>
+      </div>
+    </div>
+  );
+}
+
+export default Card;
+```
+
+---
+## Creating a component Part 2
+
+Now that we have our component `card.js` we need to import and run it inside the `app.js`, it shold look like: 
+
+```JS
+import React from 'react';
+import Card from './Card.js'
+
+export default function App() {
+  return (
+    <div className="App">
+      <Card />
+    </div>
+  );
+}
+```
+
+---
+## Creating a component Part 3
+
+Finally we need to make components for the rest of our elements, in my version I had a component for the following:
+
+1. Card (<Card />)
+2. Featured Card (<FeaturedCard />)
+3. Header (<Header />)
+
+---
+## Import and render JSON
+
+Next we will be importing and rendering JSON data. First up we need to download and import a .json file. You can get it [here](https://google.com) 
+
+Once we have the json file in our directory we will need to import it into our application, so in our `app.js` we need to have something like: 
+
+```JS
+import students from './students.json';
+```
+
+This should give us access to the info in students as an array, we can loop over this and render the `<Card />` component for each iteration 
+
+---
+## Import and render JSON Part 2
+
+Next we will be creating a map method to loop through the students info, your code inside your `app.js` will look like this: 
+
+```JS
+function App() {
+  return (
+    <div className="App bg">
+      <div className="wrap">
+        <div className="flex cardWrap jus-between wrap">
+          {students && students.map(student => (
+            <Card 
+              name={student.name}
+              degree={student.degree}
+              quote={student.quote}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+The `students &&` part before the map is a check to make sure students is defined. The `students.map(student => (` is what starts our loop, where `student` is a variable defined containing the current iteration.
+
+---
+## Passing Props
+
+Next we are going to look at passing props to the `<Card />` component. Right now this component should be used to render all the different students, however we have hard-coded all the values in the card to be the same. We can fix this by passing props to the card. So we need to change our code a bit. In `App.js` we need to change:
+
+```JS
+import React from 'react';
+import Card from './Card.js'
+
+export default function App() {
+  return (
+    <div className="App">
+      <Card name="" degree="" quote="" />
+    </div>
+  );
+}
+```
+---
+## Passing Props part 2
+
+Now that we have defined and passed props from the parent component we need to recive and parse those props in the `Card.js` component. So our new code will look like:
+
+```JS
+import React from 'react';
+
+function Card(props) {
+  return (
+    <div className="card">
+      <div className="profilePic"> </div>
+      <div className="cardBio">
+        <div className="name"> <h2 className="text-weight-bold">{props.name}</h2> </div>
+        <div className="degree text-small text-upper text-weight-light"> {props.degree} </div>
+        <div className="quote"> {props.quote} </div>
+      </div>
+    </div>
+  );
+}
+
+export default Card;
+
+```
+As you can see we are defing a new argument in the paramenters of `function Card(props)` if we were to console.log this value we would see something like: 
+```JS
+{
+  name: "...",
+  degree: "...",
+  quote: ".."
+}
+```
+React automatically wraps all props in an object
+---
+## React and Classes
+
+Sometimes we need to use classes in react, mainly becuase it allows to make use of some of the built in methods of react. Such as: 
+
+1. ComponentDidMount
+2. ComponentWillUpdate
+
+Methods like these are called life-cycle events in react, you can read about them [here](https://blog.bitsrc.io/react-16-lifecycle-methods-how-and-when-to-use-them-f4ad31fb2282). These methods are really helpful when loading dyanmic content, such as api data. 
+
+So let's look at the differences between the function based component that we have been using and the new class based that we will be using. 
+``` JS
+// function
+export function App() {
+  return (
+    ...
+  )
+}
+// Class
+export default class App extends React.Component {
+  render() {
+    return (
+      ...
+    )
+  }
+}
+```
+---
+## React and Classes part 2
+
+Next up is understanding one of the react life-cycle methods : `componentDidMount`. The react life cycle is a circle of events that fire in order. 
+
+<img src="/img/lesson/lifeCycle.png" />
+
+``` JS
+export default class App extends React.Component {
+  componentDidMount() {
+    console.log("did mount");
+  }
+  render() {
+    console.log("render");
+    return (
+      ...
+    )
+  }
+}
+```
+
+The output here would be `render` then `did mount`.
+---
+## State
+
+For the next few exercices first download the weather App from [here](weather.com), this is a small react app that makes a call to an api then renders the information. I will be referncing the app files several times. To install the weather app simply cd into the directory and run `npm i` and then `npm run start`. Once the app is running we should look at the `app.js` in the main directory.
+
+``` JS 
+class App extends React.Component {
+
+  state = {
+    temperature: undefined,
+    city: undefined,
+    country: undefined,
+    humidity: undefined,
+    description: undefined,
+    error: undefined
+  }
+```
+
+This is refered to as a local state in react, it is technically just an object with key, value pairs. The cool part is, when ever any value inside your state changes the entire react life-cycle with re-fire automatically. 
+
+---
+## State part 2
+
+Next up is modifing the state, we do this with the `setState` function, which can be explained [here](https://www.freecodecamp.org/news/get-pro-with-react-setstate-in-10-minutes-d38251d1c781/) if you look at line 25 of `app.js` you will see the function that updates the state. The function function that wraps it is called `axios` it is a way of getting information from a service called an API. The basic structure is this: 
+
+``` JS 
+axios.get('url') // url == the endpoint of the API
+.then((response) => { // this is fired once the data has been loaded
+  console.log(response) // this is the response from the endpoint
+});
+```
+Next up is modifing the state, which happens at line 25: 
+``` JS 
+this.setState({
+  temperature: response.data.main.temp,
+  city: response.data.name,
+  country: response.data.sys.country,
+  humidity: response.data.main.humidity,
+  description: response.data.weather[0].description,
+  error: ""
+})
+```
+This block is relativity easy to go through, basically we are targeting every key that we setup in the default state and changing it. What is happening behind the scenes, is that react is always watching this state and waiting for it the change. When it does react goes through it's life-cycle with updated information. 
+
+---
+## State Part 3
+
+In that last step we went over how to modify the state in react, now we need to use those updated values. One peice of the life cycle is the render, so in order of opperations it will look like this:
+
+1. Render
+2. ComponentDidMount
+3. API Call
+4. Update State
+5. Render 
+
+The first time `Render` fires all the values will be blank, but after the state changes React will automatically re-fire. This means that if we were to throw some console.logs in the `render` function like:
+``` JS
+render() {
+  console.log('render', this.state.city);
+  return (
+    ...
+  )
+}
+```
+the output from this will be :
+`render undefined`
+`render Toronto`
+We can tell from this that the render function does indeed fire twice, once when the App loads and then another time when the state is updated.
+---
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js"></script>
+    <script>window.remark || document.write(
+  '<script src="js/vendor/remark.min.js"><\/script>'
+)
+
+    </script>
+    <script src="js/vendor/remark-language.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
