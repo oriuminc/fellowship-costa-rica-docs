@@ -1,1 +1,0 @@
-# fellowship-costa-rica-docs
